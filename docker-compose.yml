@@ -1,0 +1,35 @@
+version: "3.9"
+services:
+  api:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    container_name: sharkit-api
+    volumes:
+      - ./:/var/www/html
+    environment:
+      - TZ=America/Sao_Paulo
+    depends_on:
+      sharkit-db:
+        condition: service_healthy
+    ports:
+      - "8080:80"
+  sharkit-db:
+    image: postgres
+    container_name: sharkit-db
+    ports:
+        - "5432:5432"
+    environment:
+      POSTGRES_DB: "sharkit"
+      POSTGRES_USER: "root"
+      POSTGRES_PASSWORD: "test123"
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U root -d sharkit'"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+volumes:
+  sql-data-sharkit-db:
+networks:
+  default:
+    name: sharkit

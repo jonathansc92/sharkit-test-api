@@ -30,6 +30,14 @@
 # DATABASE
 #--------------------------------------------------------------------
 
+database.default.hostname = sharkit-db
+database.default.database = sharkit
+database.default.username = root
+database.default.password = test123
+database.default.DBDriver = Postgre
+database.default.DBPrefix =
+database.default.port = 5432
+
 # database.default.hostname = localhost
 # database.default.database = ci4
 # database.default.username = root
